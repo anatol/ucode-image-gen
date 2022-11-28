@@ -73,3 +73,12 @@ hostUcodeDirAmd   = "/lib/firmware/amd-ucode"
 ```
 
 But some platforms use different files location. For example, CentOS7 stores Intel ucode at `/usr/share/microcode_ctl/ucode_with_caveats/intel/intel-ucode/`. To account it please specify the build flag like this: `go build --ldflags="-X main.hostUcodeDirIntel=/usr/share/microcode_ctl/ucode_with_caveats/intel/intel-ucode/"`
+
+
+### Reproducible images
+
+In some situations it is desirable to have reproducible builds, i.e. when the output image is stable and does not depend on the host configuration and the current time.
+
+To make a reproducible image please use `SOURCE_DATE_EPOCH` environment variable: `SOURCE_DATE_EPOCH=1520598896 ucode-image-gen`.
+
+`SOURCE_DATE_EPOCH` specifies modification time for the compressed files. This time is presented as a number of seconds since January 1st 1970, see https://reproducible-builds.org/docs/source-date-epoch/ for more information.
